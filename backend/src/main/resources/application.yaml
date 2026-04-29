@@ -1,3 +1,36 @@
 spring:
   application:
-    name: backend
+    name: chat-app-backend
+  data:
+    mongodb:
+      uri: ${MONGODB_URI:mongodb://localhost:27017/chat_app}
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 20MB
+
+server:
+  port: ${SERVER_PORT:8080}
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:change-me-for-production-chat-app-secret-key-change-me}
+    access-token-expiration-minutes: ${JWT_EXPIRES_MINUTES:1440}
+  storage:
+    upload-dir: ${FILE_UPLOAD_DIR:uploads}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: always
+
+elastic:
+  apm:
+    service-name: ${ELASTIC_APM_SERVICE_NAME:chat-app-backend}
+    server-url: ${ELASTIC_APM_SERVER_URL:http://localhost:8200}
+    environment: ${ELASTIC_APM_ENV:local}
+    secret-token: ${ELASTIC_APM_SECRET_TOKEN:}

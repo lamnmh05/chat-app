@@ -1,0 +1,29 @@
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.17.3
+    container_name: chat-app-elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - ES_JAVA_OPTS=-Xms1g -Xmx1g
+    ports:
+      - "9200:9200"
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.17.3
+    container_name: chat-app-kibana
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    depends_on:
+      - elasticsearch
+    ports:
+      - "5601:5601"
+
+  apm-server:
+    image: docker.elastic.co/apm/apm-server:8.17.3
+    container_name: chat-app-apm-server
+    command: ["apm-server", "-e", "-E", "output.elasticsearch.hosts=[\"elasticsearch:9200\"]", "-E", "apm-server.host=0.0.0.0:8200"]
+    depends_on:
+      - elasticsearch
+    ports:
+      - "8200:8200"

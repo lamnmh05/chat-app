@@ -1,0 +1,390 @@
+.root {
+    -fx-font-family: "Segoe UI";
+    -fx-background-color: #1e1f22;
+    -fx-control-inner-background: #1f2125;
+    -fx-accent: #5865f2;
+    -fx-focus-color: #5865f2;
+    -fx-faint-focus-color: transparent;
+}
+
+.label {
+    -fx-text-fill: #f2f3f5;
+}
+
+.text-field,
+.password-field,
+.text-area {
+    -fx-background-color: #1f2125;
+    -fx-background-radius: 8px;
+    -fx-border-color: #111214;
+    -fx-border-radius: 8px;
+    -fx-text-fill: #f2f3f5;
+    -fx-prompt-text-fill: #949ba4;
+    -fx-highlight-fill: #5865f2;
+    -fx-highlight-text-fill: white;
+}
+
+.text-field,
+.password-field {
+    -fx-padding: 11px 12px;
+}
+
+.text-area {
+    -fx-padding: 8px;
+}
+
+.text-area .content {
+    -fx-background-color: transparent;
+    -fx-background-radius: 8px;
+}
+
+.button {
+    -fx-background-radius: 7px;
+    -fx-padding: 9px 14px;
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
+}
+
+.button:disabled {
+    -fx-opacity: 0.65;
+}
+
+.primary-button {
+    -fx-background-color: #5865f2;
+    -fx-text-fill: white;
+}
+
+.primary-button:hover {
+    -fx-background-color: #4752c4;
+}
+
+.panel-button {
+    -fx-background-color: #404249;
+    -fx-text-fill: #f2f3f5;
+}
+
+.panel-button:hover {
+    -fx-background-color: #4b4d55;
+}
+
+.toolbar-button {
+    -fx-background-color: #404249;
+    -fx-text-fill: #f2f3f5;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 0;
+    -fx-alignment: center;
+}
+
+.toolbar-button:hover {
+    -fx-background-color: #4b4d55;
+}
+
+.danger-button {
+    -fx-background-color: #da373c;
+    -fx-text-fill: white;
+}
+
+.danger-button:hover {
+    -fx-background-color: #b72d31;
+}
+
+.quiet-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #b5bac1;
+    -fx-padding: 8px 10px;
+}
+
+.quiet-button:hover {
+    -fx-background-color: #3a3c42;
+}
+
+.secondary-link {
+    -fx-text-fill: #9da8ff;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+}
+
+.auth-root {
+    -fx-background-color: #232428;
+}
+
+.auth-form {
+    -fx-background-color: #313338;
+    -fx-background-radius: 8px;
+    -fx-padding: 28px;
+}
+
+.auth-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.auth-subtitle {
+    -fx-font-size: 13px;
+    -fx-text-fill: #b5bac1;
+}
+
+.main-root,
+.main-shell,
+.chat-pane {
+    -fx-background-color: #313338;
+}
+
+.guild-pane {
+    -fx-background-color: #232428;
+}
+
+.sidebar-pane {
+    -fx-background-color: #2b2d31;
+    -fx-border-color: #1e1f22;
+    -fx-border-width: 0 1 0 0;
+}
+
+.member-pane {
+    -fx-border-width: 0 0 0 1;
+}
+
+.panel-header {
+    -fx-padding: 0 0 4px 0;
+}
+
+.toolbar-group {
+    -fx-alignment: center-right;
+}
+
+.panel-title {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #f2f3f5;
+}
+
+.panel-subtitle,
+.typing-label,
+.footer-label,
+.cell-subtitle,
+.empty-state-copy,
+.message-time,
+.message-meta {
+    -fx-font-size: 12px;
+    -fx-text-fill: #949ba4;
+}
+
+.member-summary {
+    -fx-alignment: center-left;
+}
+
+.member-stat-online,
+.member-stat-total {
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 999px;
+    -fx-padding: 4px 8px;
+}
+
+.member-stat-online {
+    -fx-background-color: #193728;
+    -fx-text-fill: #4ade80;
+}
+
+.member-stat-total {
+    -fx-background-color: #3a3d44;
+    -fx-text-fill: #d1d5db;
+}
+
+.chat-header {
+    -fx-padding: 0 0 8px 0;
+    -fx-border-color: #1e1f22;
+    -fx-border-width: 0 0 1 0;
+}
+
+.chat-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.chat-footer {
+    -fx-padding: 4px 0 0 0;
+    -fx-border-color: #1e1f22;
+    -fx-border-width: 1 0 0 0;
+}
+
+.composer-pane {
+    -fx-background-color: #2b2d31;
+    -fx-background-radius: 8px;
+    -fx-padding: 12px;
+}
+
+.message-input {
+    -fx-background-color: #383a40;
+    -fx-background-radius: 8px;
+    -fx-border-color: transparent;
+    -fx-text-fill: #f2f3f5;
+    -fx-prompt-text-fill: #949ba4;
+}
+
+.message-input .viewport {
+    -fx-background-color: #383a40;
+    -fx-background-radius: 8px;
+}
+
+.message-input .content {
+    -fx-background-color: #383a40;
+    -fx-background-radius: 8px;
+}
+
+.list-view {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+}
+
+.list-view .virtual-flow .corner {
+    -fx-background-color: transparent;
+}
+
+.list-view .scroll-bar:vertical,
+.list-view .scroll-bar:horizontal {
+    -fx-background-color: transparent;
+}
+
+.list-view .scroll-bar:vertical .thumb,
+.list-view .scroll-bar:horizontal .thumb {
+    -fx-background-color: #4e5058;
+    -fx-background-radius: 999px;
+}
+
+.list-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: #dbdee1;
+    -fx-padding: 0;
+}
+
+.guild-list .list-cell:filled:selected,
+.channel-list .list-cell:filled:selected,
+.member-list .list-cell:filled:selected {
+    -fx-background-color: #404249;
+    -fx-background-radius: 8px;
+}
+
+.guild-cell,
+.channel-cell,
+.member-cell {
+    -fx-padding: 10px 12px;
+    -fx-background-color: transparent;
+    -fx-alignment: center-left;
+}
+
+.cell-badge {
+    -fx-min-width: 34px;
+    -fx-min-height: 34px;
+    -fx-pref-width: 34px;
+    -fx-pref-height: 34px;
+    -fx-alignment: center;
+    -fx-background-color: #404249;
+    -fx-background-radius: 17px;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #f2f3f5;
+}
+
+.cell-title {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #f2f3f5;
+}
+
+.channel-prefix {
+    -fx-font-size: 18px;
+    -fx-text-fill: #949ba4;
+}
+
+.status-pill {
+    -fx-background-radius: 999px;
+    -fx-padding: 4px 9px;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+.status-online {
+    -fx-background-color: #193728;
+    -fx-text-fill: #4ade80;
+}
+
+.status-offline {
+    -fx-background-color: #3a3d44;
+    -fx-text-fill: #d1d5db;
+}
+
+.message-list .list-cell {
+    -fx-padding: 0 0 8px 0;
+}
+
+.message-card {
+    -fx-background-color: #2b2d31;
+    -fx-background-radius: 8px;
+    -fx-padding: 12px;
+}
+
+.message-author {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #f2f3f5;
+}
+
+.message-content {
+    -fx-font-size: 13px;
+    -fx-text-fill: #f2f3f5;
+}
+
+.message-reactions {
+    -fx-font-size: 12px;
+    -fx-text-fill: #f0b232;
+}
+
+.message-action-bar {
+    -fx-background-color: #1e1f22;
+    -fx-background-radius: 8px;
+    -fx-padding: 4px;
+    -fx-border-color: #111214;
+    -fx-border-radius: 8px;
+}
+
+.message-action-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #b5bac1;
+    -fx-padding: 5px 8px;
+    -fx-font-size: 11px;
+}
+
+.message-action-button:hover {
+    -fx-background-color: #404249;
+    -fx-text-fill: #f2f3f5;
+}
+
+.message-action-danger {
+    -fx-text-fill: #f87171;
+}
+
+.message-action-danger:hover {
+    -fx-background-color: #5b2d31;
+    -fx-text-fill: #fecaca;
+}
+
+.deleted-message {
+    -fx-font-size: 13px;
+    -fx-font-style: italic;
+    -fx-text-fill: #80848e;
+}
+
+.empty-state {
+    -fx-padding: 24px;
+}
+
+.empty-state-title {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #f2f3f5;
+}

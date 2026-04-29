@@ -1,9 +1,7 @@
 plugins {
     java
     application
-    id("org.javamodularity.moduleplugin") version "1.8.15"
     id("org.openjfx.javafxplugin") version "0.1.0"
-    id("org.beryx.jlink") version "2.25.0"
 }
 
 group = "com.doan"
@@ -19,7 +17,6 @@ java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(26)
     }
-    modularity.inferModulePath.set(false)
 }
 
 tasks.withType<JavaCompile> {
@@ -27,30 +24,27 @@ tasks.withType<JavaCompile> {
 }
 
 application {
-    mainModule.set("com.doan.frontend")
     mainClass.set("com.doan.frontend.Launcher")
+    applicationDefaultJvmArgs = listOf(
+        "--enable-native-access=ALL-UNNAMED",
+        "--enable-native-access=javafx.graphics"
+    )
 }
 
 javafx {
     version = "21.0.6"
-    modules("javafx.controls", "javafx.fxml")
+    modules("javafx.controls")
 }
 
 dependencies {
-    implementation("org.controlsfx:controlsfx:11.2.1")
-    implementation("org.kordamp.bootstrapfx:bootstrapfx-core:0.4.0")
+    implementation(platform("org.springframework.boot:spring-boot-dependencies:4.0.6"))
+    implementation("com.fasterxml.jackson.core:jackson-databind")
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 tasks.withType<Test> {
     useJUnitPlatform()
-}
-
-jlink {
-    imageZip.set(layout.buildDirectory.file("/distributions/app-${javafx.platform.classifier}.zip"))
-    options.set(listOf("--strip-debug", "--compress", "2", "--no-header-files", "--no-man-pages"))
-    launcher {
-        name = "app"
-    }
 }
