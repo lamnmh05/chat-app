@@ -24,35 +24,67 @@ public class ParallelStreamDemoTest {
         boolean finalState = numbers.stream()
                 .parallel()
                 .filter(n -> n % 2 == 0)
-                .sequential() // Lệnh gọi cuối cùng quyết định tất cả
+                .sequential()
                 .isParallel();
         System.out.println("Trạng thái chốt (do gọi .sequential() cuối cùng): " + finalState);
     }
 
     @Test
-    public void demo2_PerformanceBenchmark() {
-        System.out.println("\n=== DEMO 2: BENCHMARK HIỆU NĂNG (ARRAYLIST VS LINKEDLIST) ===");
-        int N = 1_000_000;
+    public void demo2_RealWorldPerspectives() {
+        System.out.println("\n=== DEMO 2: GÓC NHÌN ĐA CHIỀU TRONG THẾ GIỚI THỰC ===");
+        int N = 5_000_000;
         List<Integer> arrayList = new ArrayList<>(N);
         List<Integer> linkedList = new LinkedList<>();
 
-        for (int i = 0; i < N; i++) {
+        for (int i = 1; i <= N; i++) {
             arrayList.add(i);
             linkedList.add(i);
         }
 
-        long start = System.currentTimeMillis();
-        arrayList.stream().filter(this::isPrime).count();
-        System.out.println("1. Sequential (Tuần tự):         " + (System.currentTimeMillis() - start) + "ms");
+        arrayList.stream().limit(10_000).mapToDouble(this::collatzConjecture).sum();
+        arrayList.parallelStream().limit(10_000).mapToDouble(this::collatzConjecture).sum();
 
-        start = System.currentTimeMillis();
-        arrayList.parallelStream().filter(this::isPrime).count();
-        System.out.println("2. Parallel (ArrayList - Tốt):   " + (System.currentTimeMillis() - start) + "ms");
+        System.out.println("\n[SCENARIO 1] Tính toán nhẹ (Toán cơ bản O(1)):");
+        measure("Sequential", () -> arrayList.stream().mapToDouble(n -> n * 2.5 / 1.3).sum());
+        measure("Parallel (ArrayList)", () -> arrayList.parallelStream().mapToDouble(n -> n * 2.5 / 1.3).sum());
+        measure("Parallel (LinkedList)", () -> linkedList.parallelStream().mapToDouble(n -> n * 2.5 / 1.3).sum());
 
-        start = System.currentTimeMillis();
-        linkedList.parallelStream().filter(this::isPrime).count();
-        System.out.println("3. Parallel (LinkedList - Kém):  " + (System.currentTimeMillis() - start) + "ms");
+        System.out.println("\n[SCENARIO 2] Tải không đồng đều (Thuật toán Collatz Conjecture):");
+        measure("Sequential", () -> arrayList.stream().mapToLong(this::collatzConjecture).sum());
+        measure("Parallel (ArrayList)", () -> arrayList.parallelStream().mapToLong(this::collatzConjecture).sum());
+        measure("Parallel (LinkedList)", () -> linkedList.parallelStream().mapToLong(this::collatzConjecture).sum());
+
+        System.out.println("\n[SCENARIO 3] Tải siêu nặng (Giả lập Hash/Crypto):");
+        // Rút số lượng xuống để test không chạy quá lâu (test trên 200,000 phần tử đầu)
+        measure("Sequential", () -> arrayList.stream().limit(200_000).mapToDouble(this::heavyHashSim).sum());
+        measure("Parallel (ArrayList)", () -> arrayList.parallelStream().limit(200_000).mapToDouble(this::heavyHashSim).sum());
+        measure("Parallel (LinkedList)", () -> linkedList.parallelStream().limit(200_000).mapToDouble(this::heavyHashSim).sum());
     }
+    private long collatzConjecture(long n) {
+        long count = 0;
+        while (n > 1) {
+            n = (n % 2 == 0) ? (n / 2) : (3 * n + 1);
+            count++;
+        }
+        return count;
+    }
+
+    // Thuật toán giả lập Crypto: Phức tạp, nặng nề, nhưng đồng đều cho mọi phần tử
+    private double heavyHashSim(int n) {
+        double result = n;
+        for (int i = 0; i < 50; i++) {
+            result = Math.sin(result) * Math.cos(result) + Math.tan(result);
+        }
+        return result;
+    }
+
+    private void measure(String label, Runnable task) {
+        long start = System.currentTimeMillis();
+        task.run();
+        long end = System.currentTimeMillis();
+        System.out.printf("%-25s : %d ms\n", label, (end - start));
+    }
+
 
     @Test
     public void demo3_SharedMutableStateTrap() {
@@ -103,7 +135,7 @@ public class ParallelStreamDemoTest {
         System.out.println("-> Giải thích: Không phải 100ms vì số luồng Common Pool bị giới hạn bởi số Core CPU!");
     }
 
-    // Hàm phụ trợ tính số nguyên tố để tạo tải (load) cho CPU ở Demo 2
+    // Hàm phụ trợ tính số nguyên tố để tạo tải (load) cho CPU
     private boolean isPrime(int number) {
         if (number <= 1) return false;
         for (int i = 2; i <= Math.sqrt(number); i++) {
